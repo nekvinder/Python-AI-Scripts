@@ -3,3 +3,5 @@ pip install SpeechRecognition
 
 for microphone support
 pip install pyaudio
+
+https://www.codingforentrepreneurs.com/blog/install-opencv-3-for-python-on-windows/
