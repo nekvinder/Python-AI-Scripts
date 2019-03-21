@@ -12,14 +12,11 @@ def assure_path_exists(path):
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 # Using prebuilt frontal face training model, for face detection
-detector = cv2.CascadeClassifier(currdir+'haarcascade_frontalface_default.xml');
+detector = cv2.CascadeClassifier(currdir+'haarcascade_frontalface_default.xml')
     
 # Create method to get the images and label data
 def getImagesAndLabels(path):
-
-
     # Get all file path
-    
     # Initialize empty face sample
     faceSamples=[]
     

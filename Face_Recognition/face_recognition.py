@@ -1,20 +1,14 @@
-import cv2
+import cv2,os ,profiles
 import numpy as np
-import os 
 
 currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
-def assure_path_exists(path):
-    dir = os.path.dirname(path)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-
-id_name={1:'Nehul',2:'Nimmi',3:'Sikhvinder'}
+id_name=profiles.readDict()
 
 # Create Local Binary Patterns Histograms for face recognization
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-assure_path_exists(currdir+"trainer\\")
+profiles.assure_path_exists(currdir+"trainer\\")
 
 # Load the trained mode
 recognizer.read(currdir+'trainer\\trainer.yml')
@@ -23,13 +17,13 @@ recognizer.read(currdir+'trainer\\trainer.yml')
 cascadePath = currdir+'haarcascade_frontalface_default.xml'
 
 # Create classifier from prebuilt model
-faceCascade = cv2.CascadeClassifier(cascadePath);
+faceCascade = cv2.CascadeClassifier(cascadePath)
 
 # Set the font style
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 # Initialize and start the video frame capture
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(currdir+'video001.mp4')
 
 
 # Loop
@@ -41,7 +35,7 @@ while True:
     gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
 
     # Get all face from the video frame
-    faces = faceCascade.detectMultiScale(gray, 1.5,5)
+    faces = faceCascade.detectMultiScale(gray, 1.2 , 6)
 
     # For each face in faces
     for(x,y,w,h) in faces:
@@ -51,13 +45,13 @@ while True:
 
         # Recognize the face belongs to which ID
         Id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
-
+        Ids=" s"
         # Check the ID if exist 
-        if(Id in id_name):
-            Ids = id_name.get(Id) + " {0:.5f}%".format(round(100 - confidence, 2))
+        if(str(Id) in id_name):
+            Ids = id_name.get(str(Id)) + " {0:.5f}%".format(round(100 - confidence, 2))
         #confidence check
-            if round(100 - confidence, 2) > 40:
-                print(id_name.get(Id) + " detected")
+            if round(100 - confidence, 2) > 80:
+                print(id_name.get(str(Id)) + " detected")
                 exit(5)
 
         # Put text describe who is in the picture
