@@ -7,9 +7,7 @@ helmetImagePath = 'E:\\projects\\python-ai-scripts\\CSK_HELMET\\helmet.png'
 cascPath = 'E:\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_default.xml'
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
-#################
 # Load our overlay image: mustache.png
-#imgMustache = cv2.imread('mustache.png',-1)
 imgMustache = cv2.imread(helmetImagePath)
 # Read the image
 image = cv2.imread(imagePath)
