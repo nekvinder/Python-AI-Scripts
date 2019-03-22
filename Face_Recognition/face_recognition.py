@@ -1,7 +1,8 @@
-import cv2
+import cv2,winsound
 import os
 import profiles
 import numpy as np
+from speaker import aprint
 from profiles import videoSource
 currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
@@ -47,13 +48,13 @@ def recognizeVideo(sourceType, source=currdir+'video.mp4'):
             # Put text describe who is in the picture
             cv2.rectangle(im, (x-22, y-90), (x+w+22, y-22), (0, 255, 0), -1)
             cv2.putText(im, str(Ids), (x, y-40), font, 1, (255, 255, 255), 3)
+        winsound.Beep(3000,500)
         cv2.imshow('im', im)
+
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
     cam.release()
     cv2.destroyAllWindows()
-
-
 def recognizeImage(path):  # returns confidence%,name
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     profiles.assure_path_exists(currdir+"trainer\\")
@@ -85,5 +86,6 @@ def recognizeImage(path):  # returns confidence%,name
 
 # confidence,name =recognizeImage(currdir+'images\\8.png')
 # print(str(confidence)+name)
-confidence, name = recognizeVideo(videoSource.webcam, currdir+'vid1eo.mp4')
-print(str(confidence)+name)
+aprint('Starting Identification. Please look into the camera.')
+confidence, name = recognizeVideo(videoSource.webcam, 'http://192.168.225.99:8080/video')
+aprint("Welcome to A T M system : "+name)

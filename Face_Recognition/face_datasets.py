@@ -1,6 +1,6 @@
 import cv2
 import profiles
-import os
+import os,speaker
 from profiles import videoSource
 currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
@@ -63,13 +63,16 @@ def generateDataSetImagesFromFolder(face_id,source=currdir+'images\\'):
             break
     cv2.destroyAllWindows()  # Close all started windows
 
-
+speaker.aprint('Please enter your Id')
 face_id = int(input("Enter Id:"))
 if not profiles.userExist(face_id):
+    speaker.aprint('You are a new user. Please enter your profile name')
     name = str(input('Enter your name:'))
     profiles.addUser(face_id, name)
 else:
     print('welcome back ' + profiles.getUser(face_id))
 
+speaker.aprint('Starting your dataset creation. Please stay constant and face the camera under proper lighting')
 generateDataSetImages(face_id, videoSource.webcam)
 # generateDataSetImagesFromFolder(face_id)
+speaker.aprint('Profiling Finished. Thank you.')

@@ -10,6 +10,12 @@ https://www.codingforentrepreneurs.com/blog/install-opencv-3-for-python-on-windo
 ----------face recog
 install cmake
 
+Text ot speech
+pip install gTTs #for making .mp3 file
+
+pip install pyttsx3 #for running directly
+-require:   pip install pywin32 
+
 
 installing tensorflow-
 python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl

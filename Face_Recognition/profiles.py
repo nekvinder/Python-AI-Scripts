@@ -14,11 +14,13 @@ def assure_path_exists(path):
 
 
 def writeDict(dict):
+    assure_path_exists(currdir+filename)
     with open(currdir+filename, 'w') as fp:
         json.dump(dict, fp, sort_keys=True, indent=4)
 
 
 def readDict():
+    assure_path_exists(currdir+filename)
     with open(currdir+filename, 'r') as fp:
         return json.load(fp)
 
