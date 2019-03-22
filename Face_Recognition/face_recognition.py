@@ -41,7 +41,7 @@ def recognizeVideo(sourceType, source=currdir+'video.mp4'):
                 Ids = id_name.get(str(Id)) + \
                     " {0:.5f}%".format(round(100 - confidence, 2))
                 # confidence check
-                if round(100 - confidence, 2) > 40:
+                if round(100 - confidence, 2) > 30:
                     cam.release()
                     cv2.destroyAllWindows()
                     return round(100 - confidence, 2), id_name.get(str(Id))
@@ -73,7 +73,7 @@ def recognizeImage(path):  # returns confidence%,name
         if(str(Id) in id_name):
             #Ids = id_name.get(str(Id)) + " {0:.5f}%".format(round(100 - confidence, 2))
             Ids = " {0:.5f}%".format(round(100 - confidence, 2))
-            if round(100 - confidence, 2) > 1:
+            if round(100 - confidence, 2) > 30:
                 cv2.destroyAllWindows()
                 return round(100 - confidence, 2), id_name.get(str(Id))
         cv2.rectangle(im, (x-22, y-90), (x+w+22, y-22), (0, 255, 0), -1)
@@ -87,5 +87,5 @@ def recognizeImage(path):  # returns confidence%,name
 # confidence,name =recognizeImage(currdir+'images\\8.png')
 # print(str(confidence)+name)
 aprint('Starting Identification. Please look into the camera.')
-confidence, name = recognizeVideo(videoSource.webcam, 'http://192.168.225.99:8080/video')
+confidence, name = recognizeVideo(videoSource.video, 'http://192.168.225.99:8080/video')
 aprint("Welcome to A T M system : "+name)

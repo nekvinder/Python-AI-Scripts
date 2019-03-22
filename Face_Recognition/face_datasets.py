@@ -13,8 +13,12 @@ def generateDataSetImages(face_id, sourceType, source=currdir+'video.mp4'):
     else:
         vid_cam = cv2.VideoCapture(source)
 
+    if os.path.exists(currdir+'haarcascade_frontalface_default.xml')==False :
+        print('Cascade file does not exist')
+        exit()
     face_detector = cv2.CascadeClassifier(
         currdir+'haarcascade_frontalface_default.xml')
+    
     profiles.assure_path_exists(currdir+"dataset\\" + str(face_id) + "\\")
     count = len(os.listdir(currdir+"dataset\\" + str(face_id)))
     initcount = count
@@ -73,6 +77,6 @@ else:
     print('welcome back ' + profiles.getUser(face_id))
 
 speaker.aprint('Starting your dataset creation. Please stay constant and face the camera under proper lighting')
-generateDataSetImages(face_id, videoSource.webcam)
+generateDataSetImages(face_id, videoSource.video, 'http://192.168.225.99:8080/video' )
 # generateDataSetImagesFromFolder(face_id)
 speaker.aprint('Profiling Finished. Thank you.')

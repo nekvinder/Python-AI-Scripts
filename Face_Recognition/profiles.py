@@ -12,7 +12,6 @@ def assure_path_exists(path):
         print(path+' does not exists.....making one')
         os.makedirs(dir)
 
-
 def writeDict(dict):
     assure_path_exists(currdir+filename)
     with open(currdir+filename, 'w') as fp:
@@ -24,6 +23,10 @@ def readDict():
     with open(currdir+filename, 'r') as fp:
         return json.load(fp)
 
+def clean():
+    dct = {}
+    writeDict(dct)
+    
 
 def addUser(uid, name):
     dct = {}
@@ -53,3 +56,6 @@ class videoSource(enum.Enum):
 # writeDict(uid_name)
 # addUser(4,'raj')
 # addUser(4,'raj')
+# clean()
+# addUser(4,'raj')
+ 
