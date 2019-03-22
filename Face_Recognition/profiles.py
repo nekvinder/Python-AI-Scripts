@@ -1,5 +1,6 @@
 import json
 import os
+import enum
 currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 filename = 'profiles.json'
@@ -8,6 +9,7 @@ filename = 'profiles.json'
 def assure_path_exists(path):
     dir = os.path.dirname(path)
     if not os.path.exists(dir):
+        print(path+' does not exists.....making one')
         os.makedirs(dir)
 
 
@@ -40,6 +42,10 @@ def userExist(uid):
     else:
         return True
 
+class videoSource(enum.Enum):
+    webcam = 1
+    video = 2
+    phonecam = 3
 
 # uid_name={1:'Mehul',2:'Nimmi',3:'Sikhvinder'}
 # writeDict(uid_name)
