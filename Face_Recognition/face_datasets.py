@@ -1,5 +1,6 @@
 import cv2
 import os
+currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 def assure_path_exists(path):
     dir = os.path.dirname(path)
@@ -10,15 +11,15 @@ def assure_path_exists(path):
 vid_cam = cv2.VideoCapture(0)
 
 # Detect object in video stream using Haarcascade Frontal Face
-face_detector = cv2.CascadeClassifier('E:\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_default.xml')
+face_detector = cv2.CascadeClassifier(currdir+'haarcascade_frontalface_default.xml')
 
 # For each person, one face id
-face_id = 1
+face_id = input("Enter Id")
 
-assure_path_exists("E:\\projects\\python-ai-scripts\\Face_Recognition\\dataset\\" +str(face_id)+ "\\") 
+assure_path_exists(currdir+"dataset\\" +str(face_id)+ "\\") 
 
 # Initialize sample face image
-count = len(os.listdir("E:\\projects\\python-ai-scripts\\Face_Recognition\\dataset\\" + str(face_id)))
+count = len(os.listdir(currdir+"dataset\\" + str(face_id)))
 initcount=count
 
 # Start looping
@@ -42,7 +43,7 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("E:\\projects\\python-ai-scripts\\Face_Recognition\\dataset\\"+str(face_id)+"\\User." + str(face_id) + '.' +
+        cv2.imwrite(currdir+"dataset\\"+str(face_id)+"\\User." + str(face_id) + '.' +
                     str(count) + ".jpg", gray[y:y+h, x:x+w])
 
         # Display the video frame, with bounded rectangle on the person's face

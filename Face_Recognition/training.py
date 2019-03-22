@@ -1,6 +1,7 @@
 import cv2, os
 import numpy as np
 from PIL import Image
+currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 def assure_path_exists(path):
     dir = os.path.dirname(path)
@@ -11,10 +12,11 @@ def assure_path_exists(path):
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 # Using prebuilt frontal face training model, for face detection
-detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml');
-
+detector = cv2.CascadeClassifier(currdir+'haarcascade_frontalface_default.xml');
+    
 # Create method to get the images and label data
 def getImagesAndLabels(path):
+
 
     # Get all file path
     
@@ -26,8 +28,8 @@ def getImagesAndLabels(path):
     idsx = os.listdir(path)
     imagePaths = []
     for id in idsx:
-            for f in os.listdir(os.path.join(path,str(id)+"\\")) :
-                imagePaths.append(os.path.join(path,str(id)+"\\"+f))
+            for f in os.listdir( path+""+str(id)+"\\") :
+                imagePaths.append(path+""+str(id)+"\\"+f)
 
     # Loop all the file path
     for imagePath in imagePaths:
@@ -57,11 +59,11 @@ def getImagesAndLabels(path):
     return faceSamples,ids
 
 # Get the faces and IDs
-faces,ids = getImagesAndLabels('E:\\projects\\python-ai-scripts\\Face_Recognition\\dataset')
+faces,ids = getImagesAndLabels(currdir+'dataset\\')
 
 # Train the model using the faces and IDs
 recognizer.train(faces, np.array(ids))
 
 # Save the model into trainer.yml
-assure_path_exists('E:\\projects\\python-ai-scripts\\Face_Recognition\\trainer\\')
-recognizer.save('E:\\projects\\python-ai-scripts\\Face_Recognition\\trainer\\trainer.yml')
+assure_path_exists(currdir+'trainer\\')
+recognizer.save(currdir+'trainer\\trainer.yml')

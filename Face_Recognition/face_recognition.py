@@ -1,32 +1,26 @@
-####################################################
-# Modified by Nazmi Asri                           #
-# Original code: http://thecodacus.com/            #
-# All right reserved to the respective owner       #
-####################################################
-
-# Import OpenCV2 for image processing
 import cv2
-
-# Import numpy for matrices calculations
 import numpy as np
-
 import os 
+
+currdir = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 def assure_path_exists(path):
     dir = os.path.dirname(path)
     if not os.path.exists(dir):
         os.makedirs(dir)
 
+id_name={1:'Nehul',2:'Nimmi',3:'Sikhvinder'}
+
 # Create Local Binary Patterns Histograms for face recognization
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-assure_path_exists("E:\\projects\\python-ai-scripts\\Face_Recognition\\trainer\\")
+assure_path_exists(currdir+"trainer\\")
 
 # Load the trained mode
-recognizer.read('E:\\projects\\python-ai-scripts\\Face_Recognition\\trainer\\trainer.yml')
+recognizer.read(currdir+'trainer\\trainer.yml')
 
 # Load prebuilt model for Frontal Face
-cascadePath = 'E:\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_default.xml'
+cascadePath = currdir+'haarcascade_frontalface_default.xml'
 
 # Create classifier from prebuilt model
 faceCascade = cv2.CascadeClassifier(cascadePath);
@@ -59,19 +53,16 @@ while True:
         Id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
         # Check the ID if exist 
-        if(Id == 1):
-            Id = "Nehul {0:.5f}%".format(round(100 - confidence, 2))
-            if round(100 - confidence, 2) > 50:
-                print("Nehul detected")
-                exit()
-        if(Id == 2):
-            Id = "Nimmi {0:.5f}%".format(round(100 - confidence, 2))
-        if(Id == 3):
-            Id = "Sukhvinder {0:.5f}%".format(round(100 - confidence, 2))
+        if(Id in id_name):
+            Ids = id_name.get(Id) + " {0:.5f}%".format(round(100 - confidence, 2))
+        #confidence check
+            if round(100 - confidence, 2) > 40:
+                print(id_name.get(Id) + " detected")
+                exit(5)
 
         # Put text describe who is in the picture
         cv2.rectangle(im, (x-22,y-90), (x+w+22, y-22), (0,255,0), -1)
-        cv2.putText(im, str(Id), (x,y-40), font, 1, (255,255,255), 3)
+        cv2.putText(im, str(Ids), (x,y-40), font, 1, (255,255,255), 3)
 
     # Display the video frame with the bounded rectangle
     cv2.imshow('im',im) 
