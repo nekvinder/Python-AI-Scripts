@@ -1,3 +1,22 @@
+to install mysql
+it need vc++14
+rather run this
+pip install mysqlclient wheel present in given link
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient
+
+
+ 'ENGINE': 'mysql.connector.django',
+        
+        #'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'atm',
+        "HOST": '',  # empty is localhost
+        'USER': 'root',
+        'PASSWORD': 'root'
+      
+
+
+
+
 pip install -U scikit-learn
 pip install SpeechRecognition
 
