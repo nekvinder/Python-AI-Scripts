@@ -11,11 +11,9 @@ class S(BaseHTTPRequestHandler):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         self._set_response()
 
-        with open('data.txt', encoding='utf8') as f:
-            text = f.read().strip()
-            text += "<br>"
-            self.wfile.write(text.format(self.path).encode('utf-8'))
-
+        with open('data.txt', 'rb') as file: 
+            self.wfile.write(file.read())
+            
 ###        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
 
     def do_POST(self):
@@ -26,6 +24,7 @@ class S(BaseHTTPRequestHandler):
 
         file=open("data.txt","a+")
         file.write(post_data.decode('utf-8'))
+        file.write("\n")
         file.close()
 
         self._set_response()
